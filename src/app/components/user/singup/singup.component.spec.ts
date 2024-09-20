@@ -5,7 +5,7 @@ import { SingupComponent } from './singup.component';
 describe('SingupComponent', () => {
   let component: SingupComponent;
   let fixture: ComponentFixture<SingupComponent>;
-
+  let compiled: HTMLElement;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SingupComponent]
@@ -15,6 +15,7 @@ describe('SingupComponent', () => {
     fixture = TestBed.createComponent(SingupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    compiled=fixture.nativeElement as HTMLElement;
   });
 
   it('should create', () => {
@@ -23,24 +24,30 @@ describe('SingupComponent', () => {
 
   it('Has title Sign Up', () => {
     
-    const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toBe('Sign Up');
   });
   it('Has label for Username', () => {
     
-    const compiled:HTMLElement = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('label')?.textContent).toBe('Username');
+    expect(getNthLabelContent(0).textContent).toBe('Username');
   });
 
   it('Has label for Email', () => {
     
-    const compiled:HTMLElement = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelectorAll('label')[1]?.textContent).toBe('Email');
+    expect(getNthLabelContent(1).textContent).toBe('Email');
   });
   
   it('Has label for Password', () => {
-    
-    const compiled:HTMLElement = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelectorAll('label')[2]?.textContent).toBe('Password');
+        
+    expect(getNthLabelContent(2).textContent).toBe('Password');
   });
+
+  it('Has input of type text for Username', () => {
+
+    const inputUsername:HTMLInputElement = getNthLabelContent(0).querySelector('input') as HTMLInputElement;
+    expect(inputUsername!.getAttribute('type')).toBe('text');
+  });
+
+  function getNthLabelContent(index:number) {
+    return compiled.querySelectorAll('label')[index];
+  }
 });
