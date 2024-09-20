@@ -33,7 +33,7 @@ describe('SingupComponent', () => {
 
   it('Has label for Email', () => {
     
-    expect(getNthLabelContent(1).textContent).toBe('Email');
+    expect(getNthLabelContent(1).textContent).toBe('Email: ');
   });
   
   it('Has label for Password', () => {
@@ -45,6 +45,12 @@ describe('SingupComponent', () => {
 
     const inputUsername:HTMLInputElement = getNthLabelContent(0).querySelector('input') as HTMLInputElement;
     expect(inputUsername!.getAttribute('type')).toBe('text');
+  });
+
+  it('Has input of type text for Email', () => {
+
+    const inputUsername:HTMLInputElement = getNthLabelContent(1).querySelector('input') as HTMLInputElement;
+    expect(inputUsername!.getAttribute('type')).toBe('email');
   });
 
   function getNthLabelContent(index:number) {
